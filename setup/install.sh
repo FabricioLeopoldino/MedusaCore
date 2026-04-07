@@ -149,11 +149,22 @@ log "Ollama instalado. Use 'ollama pull llama3' para baixar um modelo."
 # LINKFINDER
 # ============================================================
 log "Instalando LinkFinder..."
-git clone --depth 1 https://github.com/GerbenJavado/LinkFinder.git "$TOOLS_DIR/LinkFinder" 2>/dev/null
+if [ ! -d "$TOOLS_DIR/LinkFinder" ]; then
+    git clone --depth 1 https://github.com/GerbenJavado/LinkFinder.git "$TOOLS_DIR/LinkFinder" 2>/dev/null
+fi
 pip3 install -q --break-system-packages -r "$TOOLS_DIR/LinkFinder/requirements.txt"
 ln -sf "$TOOLS_DIR/LinkFinder/linkfinder.py" /usr/local/bin/linkfinder
-chmod +x /usr/local/bin/linkfinder
+chmod +x "$TOOLS_DIR/LinkFinder/linkfinder.py"
 log "LinkFinder instalado"
+
+# ============================================================
+# TORNAR FERRAMENTAS GO DISPONÍVEIS GLOBALMENTE
+# ============================================================
+log "Copiando binários Go para /usr/local/bin (acesso global)..."
+if [ -d "/root/go/bin" ]; then
+    cp -f /root/go/bin/* /usr/local/bin/ 2>/dev/null || true
+    log "Binários Go copiados para /usr/local/bin"
+fi
 
 # ============================================================
 # VERIFICAÇÃO FINAL
