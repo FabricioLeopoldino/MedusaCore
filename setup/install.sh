@@ -47,10 +47,11 @@ log "Atualizando sistema e instalando dependências base..."
 apt-get update -qq
 apt-get install -y -qq \
     curl wget git unzip jq \
-    python3 python3-pip python3-venv \
+    python3 python3-pip python3-venv pipx \
     nmap masscan \
     whois dnsutils \
     build-essential libssl-dev \
+    libpcap-dev \
     chromium \
     testssl.sh \
     docker.io docker-compose \
@@ -102,7 +103,7 @@ nuclei -update-templates -silent 2>/dev/null || warn "Falha ao atualizar templat
 # PYTHON TOOLS
 # ============================================================
 log "Instalando ferramentas Python..."
-pip3 install -q \
+pip3 install -q --break-system-packages \
     arjun \
     requests \
     python-dotenv \
