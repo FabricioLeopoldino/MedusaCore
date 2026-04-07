@@ -1,0 +1,45 @@
+# ============================================================
+# MEDUSA — Configurações Globais
+# ============================================================
+
+# Performance
+threads: 10
+timeout: 30
+rate_limit: 150        # requests por segundo (nuclei, httpx)
+delay: 0               # delay entre requests (ms)
+
+# Wordlists
+wordlists:
+  directories: /opt/medusa/wordlists/SecLists/Discovery/Web-Content/raft-medium-directories.txt
+  subdomains: /opt/medusa/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+  parameters: /opt/medusa/wordlists/SecLists/Discovery/Web-Content/burp-parameter-names.txt
+  fallback_dirs: /usr/share/wordlists/dirb/common.txt
+
+# Scanning
+scanning:
+  max_subdomains: 5000       # limite de subdomínios para processar
+  max_urls_for_active: 50    # limite de URLs para scans ativos
+  max_urls_for_deep: 20      # limite de URLs para análise profunda
+  max_js_files: 100          # limite de JS files para baixar
+
+# IA
+ai:
+  provider: ollama           # ollama | anthropic | openai
+  model_ollama: llama3
+  model_anthropic: claude-opus-4-6
+  model_openai: gpt-4o
+  max_tokens: 8192
+  scan_data_limit: 50000     # limite de chars dos dados enviados para IA
+
+# Nuclei
+nuclei:
+  severity: critical,high,medium
+  tags: cve,exposed,misconfiguration,takeover,default-login,exposure
+  rate_limit: 150
+
+# Notificações
+notifications:
+  telegram: true
+  notify_on_critical: true   # notificar imediatamente ao encontrar critical
+  notify_on_phase: true      # notificar ao concluir cada fase
+  notify_on_complete: true   # notificar ao finalizar tudo

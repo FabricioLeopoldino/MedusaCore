@@ -1,0 +1,27 @@
+# Outputs - nunca versionar dados de alvos
+output/
+reports/output/
+
+# Ambiente
+.env
+*.env
+
+# Dados sensíveis
+config/targets.yaml
+
+# n8n data local
+n8n_data/
+
+# Logs
+*.log
+logs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
