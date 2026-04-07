@@ -75,7 +75,6 @@ GO_TOOLS=(
     "github.com/projectdiscovery/dnsx/cmd/dnsx@latest"
     "github.com/projectdiscovery/naabu/v2/cmd/naabu@latest"
     "github.com/projectdiscovery/katana/cmd/katana@latest"
-    "github.com/projectdiscovery/gau/v2/cmd/gau@latest"
     "github.com/ffuf/ffuf/v2@latest"
     "github.com/OJ/gobuster/v3@latest"
     "github.com/hahwul/dalfox/v2@latest"
@@ -151,7 +150,7 @@ log "Ollama instalado. Use 'ollama pull llama3' para baixar um modelo."
 # ============================================================
 log "Instalando LinkFinder..."
 git clone --depth 1 https://github.com/GerbenJavado/LinkFinder.git "$TOOLS_DIR/LinkFinder" 2>/dev/null
-pip3 install -q -r "$TOOLS_DIR/LinkFinder/requirements.txt"
+pip3 install -q --break-system-packages -r "$TOOLS_DIR/LinkFinder/requirements.txt"
 ln -sf "$TOOLS_DIR/LinkFinder/linkfinder.py" /usr/local/bin/linkfinder
 chmod +x /usr/local/bin/linkfinder
 log "LinkFinder instalado"
