@@ -1,0 +1,13 @@
+# Garantir que scripts shell chegam com LF no Linux
+*.sh        text eol=lf
+*.py        text eol=lf
+*.md        text eol=lf
+*.yaml      text eol=lf
+*.yml       text eol=lf
+*.json      text eol=lf
+*.example   text eol=lf
+
+# Binários
+*.mp4       binary
+*.png       binary
+*.jpg       binary

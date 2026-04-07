@@ -1,0 +1,47 @@
+# ============================================================
+# MEDUSA — Configuração de Alvos
+# Copie para targets.yaml e configure o alvo atual
+# targets.yaml está no .gitignore (dados sensíveis)
+# ============================================================
+
+# Domínio principal do alvo
+domain: exemplo.com
+
+# Programa de Bug Bounty
+bounty_program:
+  name: "Nome do Programa"
+  platform: "HackerOne"          # HackerOne | Bugcrowd | Intigriti | Outro
+  url: "https://hackerone.com/..."
+  policy_url: "https://..."
+
+# Escopo (IN-SCOPE)
+scope:
+  domains:
+    - "*.exemplo.com"
+    - "api.exemplo.com"
+    - "app.exemplo.com"
+  ip_ranges: []
+  wildcards: true
+
+# Fora do escopo (OUT-OF-SCOPE) — NUNCA testar
+out_of_scope:
+  domains:
+    - "blog.exemplo.com"
+    - "status.exemplo.com"
+  paths:
+    - "/admin/legacy"
+  notes: "Não testar endpoints de produção de pagamento"
+
+# Conta de teste (se disponível)
+test_account:
+  username: "seu_usuario_teste"
+  # Não coloque senhas aqui — use variáveis de ambiente
+  # PASSWORD=sua_senha no .env
+
+# Restrições do programa
+restrictions:
+  no_dos: true              # Sem testes de DoS
+  no_social_engineering: true
+  no_physical: true
+  rate_limit_respected: true
+  max_requests_per_second: 10

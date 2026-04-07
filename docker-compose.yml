@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  # ============================================================
+  # N8N — Orquestrador de Workflows
+  # ============================================================
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: medusa_n8n
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER:-admin}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD:-medusa2024}
+      - N8N_HOST=${N8N_HOST:-localhost}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - WEBHOOK_URL=http://${N8N_HOST:-localhost}:5678/
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - TZ=America/Sao_Paulo
+      # Execução de comandos externos
+      - N8N_ALLOW_EXEC=true
+    volumes:
+      - n8n_data:/home/node/.n8n
+      # Montar o projeto para que o n8n possa chamar os scripts
+      - .:/opt/medusa
+    networks:
+      - medusa_net
+
+  # ============================================================
+  # OLLAMA — IA Local
+  # ============================================================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: medusa_ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - medusa_net
+    # Para usar GPU (descomente se tiver NVIDIA):
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+volumes:
+  n8n_data:
+    driver: local
+  ollama_data:
+    driver: local
+
+networks:
+  medusa_net:
+    driver: bridge
