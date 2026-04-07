@@ -21,6 +21,19 @@ check() {
     fi
 }
 
+# Verifica ferramenta com nome alternativo
+check_any() {
+    for cmd in "$@"; do
+        if command -v "$cmd" &>/dev/null; then
+            echo -e "  ${GREEN}✓${NC} $cmd"
+            ((OK++))
+            return
+        fi
+    done
+    echo -e "  ${RED}✗${NC} $1 — NÃO ENCONTRADO"
+    ((FAIL++))
+}
+
 echo "=== MEDUSA — Verificação de Ferramentas ==="
 echo ""
 
@@ -45,7 +58,7 @@ echo "[ Vulnerabilidades ]"
 check nuclei
 check ffuf
 check gobuster
-check testssl.sh
+check_any testssl.sh testssl
 check arjun
 
 echo ""
